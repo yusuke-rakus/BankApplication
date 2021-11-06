@@ -12,9 +12,14 @@ public class LoginController {
 		return "entry/login-view";
 	}
 	
-	@RequestMapping("/test")
+	@RequestMapping("/home")
 	public String test() {
-		return "user-view/user-home";
+		return "user-view/home";
+	}
+	
+	@RequestMapping("/transfer")
+	public String transfer() {
+		return "user-view/transfer-view";
 	}
 
 }

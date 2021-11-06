@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="../../static/css/bootstrap.css"
+	th:href="@{/css/bootstrap.css}" />
+<title>銀行のアプリ</title>
+</head>
+<body>
+	<div class="container">
+		<!-- ヘッダー -->
+		<nav class="navbar navbar-expand-lg navbar-light"
+			style="background-color: #e60000">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="#" style="color: #fff">銀行のアプリ</a>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbarText"
+					aria-controls="navbarText" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarText">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link" aria-current="page"
+							href="#" style="color: #fff">Home</a></li>
+						<li class="nav-item">
+							<!-- 振り込み画面へ --> 
+							<a class="nav-link" href="#" style="color: #fff">振り込み</a>
+							<!-- 振り込み画面へ -->
+						</li>
+					</ul>
+					<span class="navbar-text px-4" style="color: #fff"> ようこそ ゲスト
+						さま </span>
+					<!-- ログアウト -->
+					<a href="" class="nav-link" style="color: #fff">ログアウト</a>
+					<!-- ログアウト -->
+				</div>
+			</div>
+		</nav>
+		<!-- ヘッダー -->
+
+		<!-- 現在残高表示カード -->
+		<div class="card mt-3 col-3 mx-auto">
+			<div class="card-body text-center">
+				現在の残高
+				<h3>10,000円</h3>
+			</div>
+		</div>
+
+		<!-- 振り込み画面 -->
+		<div class="row col-6 offset-3">
+			<form class="row g-3 mt-5">
+				<div class="col-12">
+					<label for="inputState" class="form-label">受信銀行</label> <select
+						id="inputState" class="form-select">
+						<option>A銀行</option>
+						<option>B銀行</option>
+					</select>
+				</div>
+
+				<div class="col-12">
+					<label for="inputEmail4" class="form-label">口座番号</label> <input
+						type="email" class="form-control" id="inputEmail4" />
+					<div class="alert alert-danger mt-2" role="alert">
+						存在しない口座番号です</div>
+				</div>
+
+				<div class="col-12 mb-3">
+					<label for="inputPassword4" class="form-label">金額</label> <input
+						type="password" class="form-control" id="inputPassword4" />
+					<div class="alert alert-danger mt-2" role="alert">金額が不足しています
+					</div>
+				</div>
+
+				<div class="row">
+					<button type="submit" class="btn btn-primary col-md-4 mx-auto">
+						振込依頼</button>
+				</div>
+			</form>
+		</div>
+		
+	</div>
+</body>
+</html>
