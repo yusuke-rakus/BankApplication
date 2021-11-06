@@ -9,7 +9,12 @@ public class LoginController {
 	
 	@RequestMapping("")
 	public String loginView() {
-		return "login-view";
+		return "entry/login-view";
+	}
+	
+	@RequestMapping("/test")
+	public String test() {
+		return "user-view/user-home";
 	}
 
 }
