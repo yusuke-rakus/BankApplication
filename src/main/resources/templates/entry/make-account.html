@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="../../static/css/bootstrap.css"
+	th:href="@{/css/bootstrap.css}" />
+<title>Document</title>
+</head>
+<body>
+
+	<div class="container">
+		<!-- header -->
+		<nav class="navbar navbar-light" style="background-color: #e60000">
+			<div class="container-fluid">
+				<p class="pt-3 navbar-brand" style="color: #fff">銀行のアプリケーション</p>
+			</div>
+		</nav>
+		<!-- header -->
+		<div class="row col-md-8 offset-md-2 mt-5">
+			<form action="">
+				<div class="row">
+					<div class="col">
+						<div class="form-floating">
+							<input type="email" class="form-control"
+								placeholder="name@example.com" /> <label
+								for="floatingInput">名字</label>
+						</div>
+					</div>
+					<div class="col">
+						<div class="form-floating mb-4">
+							<input type="password" class="form-control"
+								placeholder="Password" /> <label
+								for="floatingPassword">氏名</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="mb-4">
+					<input type="radio" class="btn-check" name="options-outlined"
+						id="success-outlined" autocomplete="off" /> <label
+						class="btn btn-outline-primary" for="success-outlined">男性</label>
+					<input type="radio" class="btn-check" name="options-outlined"
+						id="danger-outlined" autocomplete="off" /> <label
+						class="btn btn-outline-primary" for="danger-outlined">女性</label>
+				</div>
+				<div class="col-2 mb-4">
+					<select class="form-select">
+						<option selected>年齢</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+					</select>
+				</div>
+
+				<div class="form-floating mb-4">
+					<input type="email" class="form-control"
+						placeholder="name@example.com" /> <label
+						for="floatingInput">住所</label>
+				</div>
+
+				<div class="col-4 mb-4">
+					<select class="form-select">
+						<option selected>銀行を選択</option>
+						<option value="1">三菱UFJ銀行</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+					</select>
+				</div>
+
+				<div class="form-floating mb-4">
+					<input type="email" class="form-control"
+						placeholder="name@example.com" /> <label
+						for="floatingInput">初回入金金額</label>
+				</div>
+
+				<div class="form-floating mb-4">
+					<input type="password" class="form-control" placeholder="Password" />
+					<label for="floatingPassword">ログインパスワードを設定</label>
+				</div>
+
+				<button class="btn btn-primary">登録</button>
+			</form>
+			
+		</div>
+	</div>
+
+</body>
+</html>
