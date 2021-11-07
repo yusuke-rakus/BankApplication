@@ -23,36 +23,40 @@
 			<div class="card col-lg-8">
 				<div class="cardbody">
 					<!-- form -->
-					<form class="m-5">
+					<form th:action="@{/login}" th:object="${loginForm}" class="m-5"
+						method="post">
 
 						<!-- ログイン失敗時に表示 -->
-						<div class="row offset-2">
+						<div th:if="${errorMessage != null}" class="row offset-2">
 							<div class="alert alert-danger col-10 text-center" role="alert">
 								口座番号またはパスワードが違います</div>
 						</div>
 
 						<!-- 口座番号 -->
 						<div class="row mb-3">
-							<label for="inputEmail3" class="col-sm-2 col-form-label">口座番号</label>
+							<label for="accountNumber" class="col-sm-2 col-form-label">口座番号</label>
 							<div class="col-sm-10">
-								<input type="email" class="form-control" id="inputEmail3" />
+								<input type="text" class="form-control"
+									th:field="*{accountNumber}" />
 							</div>
 						</div>
 
 						<!-- パスワード -->
 						<div class="row mb-3">
-							<label for="inputPassword3" class="col-sm-2 col-form-label">パスワード</label>
+							<label for="password" class="col-sm-2 col-form-label">パスワード</label>
 							<div class="col-sm-10">
-								<input type="password" class="form-control" id="inputPassword3" />
+								<input type="password" class="form-control"
+									th:field="*{password}" />
 							</div>
 						</div>
 
 						<!-- ログイン処理 -->
 						<div class="d-grid gap-2 col-4 mx-auto">
-							<button class="btn btn-primary" type="button">ログイン</button>
+							<button class="btn btn-primary" type="submit">ログイン</button>
 
 							<!-- 口座開設ページへ遷移 -->
-							<a type="button" class="btn btn-outline-secondary"> 新規口座開設 </a>
+							<a th:href="@{/makeAccount}" type="button"
+								class="btn btn-outline-secondary"> 新規口座開設 </a>
 						</div>
 					</form>
 					<!-- form -->
