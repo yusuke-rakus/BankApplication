@@ -42,6 +42,18 @@ public class UserRepository {
 		return userList.get(0);
 	}
 	
+	public User findByBankNameAndAccount(String bankName, String accountNumber) {
+		String sql = "SELECT * FROM user_info "
+				+ "WHERE bank_name=:bankName AND account_number=:accountNumber;";
+		SqlParameterSource param = new MapSqlParameterSource()
+				.addValue("bankName", bankName).addValue("accountNumber", accountNumber);
+		List<User> userList = template.query(sql, param, USER_ROW_MAPPER);
+		if(userList.size() == 0) {
+			return null;
+		}
+		return userList.get(0);
+	}
+	
 	public User findById(Integer id) {
 		String sql = "SELECT * from user_info WHERE id=:id;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
@@ -59,9 +71,10 @@ public class UserRepository {
 			template.update(sql, param);
 		} else {
 			String sql = "UPDATE user_info "
-					+ "SET last_name=:lastName, first_name=:firstName, gender=:gender"
-					+ ", age=:age, address=:address, bank_name=:bankName, account_number=:account_number"
-					+ "amount=:amount, password=:password";
+					+ "SET last_name=:lastName, first_name=:firstName, gender=:gender, "
+					+ "age=:age, address=:address, bank_name=:bankName, "
+					+ "account_number=:accountNumber, amount=:amount, password=:password "
+					+ "WHERE id=:id;";
 			template.update(sql, param);
 		}
 	}

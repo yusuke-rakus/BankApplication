@@ -26,7 +26,8 @@
 						<li class="nav-item"><a class="nav-link" aria-current="page"
 							href="#" style="color: #fff">Home</a></li>
 						<li class="nav-item">
-							<!-- 振り込み画面へ --> <a class="nav-link" href="#" style="color: #fff">振り込み</a>
+							<!-- 振り込み画面へ --> 
+							<a th:href="@{/userPage/transferPage(id=${session.id})}" class="nav-link" style="color: #fff">振り込み</a>
 							<!-- 振り込み画面へ -->
 						</li>
 					</ul>

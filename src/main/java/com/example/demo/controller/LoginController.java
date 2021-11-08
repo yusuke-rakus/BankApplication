@@ -55,8 +55,9 @@ public class LoginController {
 			 model.addAttribute("errorMessage", "errorMessage");
 			 return "entry/login-view";
 		 }
-		 session.setAttribute("bankName", user.getBankName());
+		 session.setAttribute("id", user.getId());
 		 session.setAttribute("lastName", user.getLastName());
+		 session.setAttribute("bankName", user.getBankName());
 		 session.setAttribute("accountNumber", user.getAccountNumber());
 		 return "redirect:userPage/";
 	 }

@@ -35,9 +35,7 @@ INSERT INTO bank_list(bank_code, bank_name) VALUES('0009', '三井住友銀行')
 INSERT INTO bank_list(bank_code, bank_name) VALUES('0010', 'りそな銀行');
 
 INSERT INTO user_info(last_name, first_name, gender, age, address, bank_name, account_number, amount, password) VALUES('黒川','明人','男性','44','東京都港区高輪4丁目','みずほ銀行','0384925',1000000,'kurokawa');
-INSERT INTO user_info(last_name, first_name, gender, age, address, bank_name, account_number, amount, password) VALUES('春日','俊明','男性','42','東京都杉並区阿佐谷南1丁目','三井住友銀行','0249134',10000000,'kasuga');
-INSERT INTO user_info(last_name, first_name, gender, age, address, bank_name, account_number, amount, password) VALUES('佐々木','直人','男性','28','大阪府大阪市中央区東心斎橋','三井住友銀行','0384325',100000,'sosina');
-
-
-
+INSERT INTO user_info(last_name, first_name, gender, age, address, bank_name, account_number, amount, password) VALUES('春日','俊明','男性','42','東京都杉並区阿佐谷南1丁目','三井住友銀行','0249134',1000000,'kasuga');
+INSERT INTO user_info(last_name, first_name, gender, age, address, bank_name, account_number, amount, password) VALUES('佐々木','直人','男性','28','大阪府大阪市中央区東心斎橋','三井住友銀行','0384325',1000000,'sosina');
+INSERT INTO user_info(last_name, first_name, gender, age, address, bank_name, account_number, amount, password) VALUES('山田','孝之','男性','34','沖縄県那覇市','三菱UFJ銀行','3849272',1000000,'a');
 
