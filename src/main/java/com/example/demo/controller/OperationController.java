@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.domain.Bank;
+import com.example.demo.domain.TransferColumn;
 import com.example.demo.domain.User;
 import com.example.demo.form.TransferForm;
 import com.example.demo.service.BankService;
+import com.example.demo.service.TransferService;
 import com.example.demo.service.UserService;
 
 @Controller
@@ -19,6 +23,9 @@ public class OperationController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private TransferService transferService;
 	
 	@Autowired
 	private BankService bankService;
@@ -63,6 +70,10 @@ public class OperationController {
 		}
 		userService.withdrawal(withdrawalUser, transferAmount);
 		userService.deposit(depositUser, transferAmount);
+		
+		/** saveメソッドを呼び出してtransaction_listへ格納 */
+		transferService.save(withdrawalUser, depositUser, transferAmount);
+		
 		return "redirect:/userPage/";
 	}
 

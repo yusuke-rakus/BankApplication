@@ -25,11 +25,10 @@ public class TrasferRepository {
 	/** 新規取引をテーブルに保存 */
 	public void save(TransferColumn column) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(column);
-		String sql = "INSERT INTO transaction_list(trade_date"
-				+ ", amount, withdrawal_account, deposit_account)"
-				+ " VALUES(:tradeDate, :amount"
-				+ ", :withdtawalAccount, :depositAccount);";
+		String sql = "INSERT INTO transaction_list(trade_date, amount, withdrawal_account, deposit_account) "
+				+ "VALUES(:tradeDate, :amount, :withdrawalAccount, :depositAccount);";
 		template.update(sql, param);
+		System.out.println(column);
 	}
 	
 	/** 口座番号を指定して取引履歴を取得 */

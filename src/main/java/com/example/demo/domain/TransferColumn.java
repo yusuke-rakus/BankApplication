@@ -9,6 +9,14 @@ public class TransferColumn {
 	private Integer amount;
 	private String withdrawalAccount;
 	private String depositAccount;
+	
+	public TransferColumn(Date tradeDate, Integer amount, String withdrawalAccount, String depositAccount) {
+		super();
+		this.tradeDate = tradeDate;
+		this.amount = amount;
+		this.withdrawalAccount = withdrawalAccount;
+		this.depositAccount = depositAccount;
+	}
 
 	public Integer getId() {
 		return id;
