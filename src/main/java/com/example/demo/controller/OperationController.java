@@ -1,13 +1,12 @@
 package com.example.demo.controller;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.domain.Bank;
 import com.example.demo.domain.TransferColumn;
@@ -32,6 +31,8 @@ public class OperationController {
 	
 	@RequestMapping("")
 	public String userPage() {
+		/** 取引明細の表示 */
+		transferService.findTransferList(null);
 		return "user-view/home";
 	}
 	
@@ -50,7 +51,7 @@ public class OperationController {
 	}
 	
 	@RequestMapping("/transfer")
-	public String transfer(TransferForm form, Model model) {
+	public String transfer(TransferForm form, Model model, RedirectAttributes redirect) {
 		User withdrawalUser = userService.findById(form.getId());
 		User depositUser = userService.findByBankNameAndAccount(form.getBankName(), form.getAcceptAccount());
 		Integer transferAmount = form.getAmount();
@@ -72,8 +73,18 @@ public class OperationController {
 		userService.deposit(depositUser, transferAmount);
 		
 		/** saveメソッドを呼び出してtransaction_listへ格納 */
-		transferService.save(withdrawalUser, depositUser, transferAmount);
+		transferService.save(
+				withdrawalUser, 
+				withdrawalUser.getAmount(), 
+				depositUser, 
+				depositUser.getAmount(), 
+				transferAmount
+				);
 		
+		/** 取引履歴を取得 */
+		List<TransferColumn> transferList = 
+				transferService.findTransferList(withdrawalUser.getAccountNumber());
+		redirect.addFlashAttribute("transferList", transferList);
 		return "redirect:/userPage/";
 	}
 

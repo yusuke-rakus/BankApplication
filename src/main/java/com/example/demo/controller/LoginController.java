@@ -11,12 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.domain.Bank;
+import com.example.demo.domain.TransferColumn;
 import com.example.demo.domain.User;
 import com.example.demo.form.LoginForm;
 import com.example.demo.form.NewAccountForm;
 import com.example.demo.service.BankService;
+import com.example.demo.service.TransferService;
 import com.example.demo.service.UserService;
 
 @Controller
@@ -38,31 +41,33 @@ public class LoginController {
 	}
 	
 	@Autowired
-	HttpSession session;
+	private HttpSession session;
+	
+	@Autowired
+	private TransferService transferService;
 	
 	@RequestMapping("")
 	public String loginView() {
 		return "entry/login-view";
 	}
 	
-	/**
-	 * ログイン時の処理
-	 */
+	/** ログイン時の処理 */
 	 @RequestMapping("/login")
-	 public String login(LoginForm form, Model model) {
+	 public String login(LoginForm form, Model model, RedirectAttributes redirect) {
 		 User user = userService.findByAccountAndPassword(form.getAccountNumber(), form.getPassword());
 		 if(user == null) {
 			 model.addAttribute("errorMessage", "errorMessage");
 			 return "entry/login-view";
 		 }
+		 List<TransferColumn> transferList = transferService.findTransferList(user.getAccountNumber());
+		 redirect.addFlashAttribute("transferList", transferList);
+		 
 		 session.setAttribute("id", user.getId());
 		 session.setAttribute("lastName", user.getLastName());
 		 session.setAttribute("bankName", user.getBankName());
 		 session.setAttribute("accountNumber", user.getAccountNumber());
 		 return "redirect:userPage/";
 	 }
-	
-	
 	
 	/**
 	 * 新規口座開設画面へ遷移

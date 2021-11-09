@@ -8,14 +8,21 @@ public class TransferColumn {
 	private Date tradeDate;
 	private Integer amount;
 	private String withdrawalAccount;
+	private Integer withdrawalAmount;
 	private String depositAccount;
-	
-	public TransferColumn(Date tradeDate, Integer amount, String withdrawalAccount, String depositAccount) {
-		super();
+	private Integer depositAmount;
+
+	public TransferColumn() {
+	}
+
+	public TransferColumn(Date tradeDate, Integer amount, String withdrawalAccount, Integer withdrawalAmount,
+			String depositAccount, Integer depositAmount) {
 		this.tradeDate = tradeDate;
 		this.amount = amount;
 		this.withdrawalAccount = withdrawalAccount;
+		this.withdrawalAmount = withdrawalAmount;
 		this.depositAccount = depositAccount;
+		this.depositAmount = depositAmount;
 	}
 
 	public Integer getId() {
@@ -50,6 +57,14 @@ public class TransferColumn {
 		this.withdrawalAccount = withdrawalAccount;
 	}
 
+	public Integer getWithdrawalAmount() {
+		return withdrawalAmount;
+	}
+
+	public void setWithdrawalAmount(Integer withdrawalAmount) {
+		this.withdrawalAmount = withdrawalAmount;
+	}
+
 	public String getDepositAccount() {
 		return depositAccount;
 	}
@@ -58,10 +73,19 @@ public class TransferColumn {
 		this.depositAccount = depositAccount;
 	}
 
+	public Integer getDepositAmount() {
+		return depositAmount;
+	}
+
+	public void setDepositAmount(Integer depositAmount) {
+		this.depositAmount = depositAmount;
+	}
+
 	@Override
 	public String toString() {
-		return "TransferTable [id=" + id + ", tradeDate=" + tradeDate + ", amount=" + amount + ", withdrawalAccount="
-				+ withdrawalAccount + ", depositAccount=" + depositAccount + "]";
+		return "TransferColumn [id=" + id + ", tradeDate=" + tradeDate + ", amount=" + amount + ", withdrawalAccount="
+				+ withdrawalAccount + ", withdrawalAmount=" + withdrawalAmount + ", depositAccount=" + depositAccount
+				+ ", depositAmount=" + depositAmount + "]";
 	}
 
 }
