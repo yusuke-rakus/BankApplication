@@ -30,6 +30,7 @@ public class LoginController {
 
 	@Autowired
 	private BankService bankService;
+	
 	@Autowired
 	private UserService userService;
 
@@ -68,8 +69,9 @@ public class LoginController {
 //		session.setAttribute("lastName", user.getLastName());
 //		session.setAttribute("bankName", user.getBankName());
 //		session.setAttribute("accountNumber", user.getAccountNumber());
+		List<TransferColumn> transferList = transferService.findTransferList(user.getAccountNumber());
+		session.setAttribute("transferList", transferList);
 		session.setAttribute("user", user);
-		session.setAttribute("transferList", transferService.findTransferList(user.getAccountNumber()));
 		return "redirect:userPage/";
 	}
 

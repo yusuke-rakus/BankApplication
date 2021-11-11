@@ -36,7 +36,9 @@ public class OperationController {
 
 	@RequestMapping("")
 	public String userPage() {
-		/** 取引明細の表示 */
+		/** 取引履歴を取得 */
+		List<TransferColumn> transferList = transferService.findTransferList(withdrawalUser.getAccountNumber());
+		session.setAttribute("transferList", transferList);
 		return "user-view/home";
 	}
 
@@ -81,9 +83,6 @@ public class OperationController {
 		transferService.save(withdrawalUser, withdrawalUser.getAmount(), depositUser, depositUser.getAmount(),
 				transferAmount);
 
-		/** 取引履歴を取得 */
-		List<TransferColumn> transferList = transferService.findTransferList(withdrawalUser.getAccountNumber());
-		session.setAttribute("transferList", transferList);
 		return "redirect:/userPage/";
 	}
 

@@ -67,18 +67,18 @@
 					<tr th:each="transaction:${session.transferList}">
 						<td th:text="${transaction.tradeDate}">date</td>
 						<td
-							th:if="${transaction.withdrawalAccount == session.accountNumber}"
+							th:if="${transaction.withdrawalAccount == session.user.accountNumber}"
 							th:text="${transaction.amount}">withdrawal</td>
 						<td
-							th:unless="${transaction.withdrawalAccount == session.accountNumber}"></td>
-						<td th:if="${transaction.depositAccount == session.accountNumber}"
+							th:unless="${transaction.withdrawalAccount == session.user.accountNumber}"></td>
+						<td th:if="${transaction.depositAccount == session.user.accountNumber}"
 							th:text="${transaction.amount}">deposit</td>
 						<td
-							th:unless="${transaction.depositAccount == session.accountNumber}"></td>
+							th:unless="${transaction.depositAccount == session.user.accountNumber}"></td>
 						<td
-							th:if="${transaction.withdrawalAccount == session.accountNumber}"
+							th:if="${transaction.withdrawalAccount == session.user.accountNumber}"
 							th:text="${transaction.withdrawalAmount}">withdrawalAmount</td>
-						<td th:if="${transaction.depositAccount == session.accountNumber}"
+						<td th:if="${transaction.depositAccount == session.user.accountNumber}"
 							th:text="${transaction.depositAmount}">depositAmount</td>
 					</tr>
 				</tbody>
