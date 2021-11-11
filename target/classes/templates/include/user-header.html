@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Document</title>
+</head>
+<body>
+
+	<nav th:fragment="user-header"
+		class="navbar navbar-expand-lg navbar-light"
+		th:style="|background-color: ${session.bankInfo.bankColorCode}|">
+		<div class="container-fluid">
+			<a class="navbar-brand" th:href="@{/userPage(id=${session.user.id})}" style="color: #fff">銀行のアプリ</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarText"
+				aria-controls="navbarText" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarText">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link" aria-current="page"
+						th:href="@{/userPage(id=${session.user.id})}" style="color: #fff">Home</a></li>
+					<li class="nav-item">
+						<!-- 振り込み画面へ --> <a
+						th:href="@{/userPage/transferPage(id=${session.user.id})}"
+						class="nav-link" style="color: #fff">振り込み</a> <!-- 振り込み画面へ -->
+					</li>
+				</ul>
+				<span class="navbar-text px-4" style="color: #fff"> ようこそ <span
+					th:text="${session.user.lastName}">ゲスト</span> さま
+				</span>
+				<!-- ログアウト -->
+				<a th:href="@{/userPage/logout}" class="nav-link"
+					style="color: #fff">ログアウト</a>
+				<!-- ログアウト -->
+			</div>
+		</div>
+	</nav>
+
+</body>
+</html>

@@ -12,11 +12,7 @@
 	<div class="container">
 
 		<!-- header -->
-		<nav class="navbar navbar-light" style="background-color: #e60000">
-			<div class="container-fluid">
-				<p class="pt-3 navbar-brand" style="color: #fff">銀行のアプリケーション</p>
-			</div>
-		</nav>
+		<nav th:replace="include/login-header::login-header"></nav>
 		<!-- header -->
 		
 		<div th:if="${user != null}" class="my-5 col-4 offset-4">

@@ -34,6 +34,9 @@ public class LoginController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private TransferService transferService;
+	
 	@ModelAttribute
 	NewAccountForm setNewAccountForm() {
 		return new NewAccountForm();
@@ -47,9 +50,7 @@ public class LoginController {
 	@Autowired
 	private HttpSession session;
 
-	@Autowired
-	private TransferService transferService;
-
+	
 	@RequestMapping("")
 	public String loginView() {
 		return "entry/login-view";
@@ -63,16 +64,14 @@ public class LoginController {
 			model.addAttribute("errorMessage", "errorMessage");
 			return "entry/login-view";
 		}
-//		List<TransferColumn> transferList = transferService.findTransferList(user.getAccountNumber());
-//		session.setAttribute("transferList", transferList);
-//		session.setAttribute("id", user.getId());
-//		session.setAttribute("lastName", user.getLastName());
-//		session.setAttribute("bankName", user.getBankName());
-//		session.setAttribute("accountNumber", user.getAccountNumber());
+		// sessionの設定
 		List<TransferColumn> transferList = transferService.findTransferList(user.getAccountNumber());
 		session.setAttribute("transferList", transferList);
+		Bank bankInfo = bankService.findByBankName(user.getBankName()); 
+		session.setAttribute("bankInfo", bankInfo);
 		session.setAttribute("user", user);
-		return "redirect:userPage/";
+//		return "redirect:userPage/";
+		return "user-view/home";
 	}
 
 	/**

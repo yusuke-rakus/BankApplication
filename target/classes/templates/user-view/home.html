@@ -11,35 +11,7 @@
 <body>
 	<div class="container">
 		<!-- ヘッダー -->
-		<nav class="navbar navbar-expand-lg navbar-light"
-			style="background-color: #e60000">
-			<div class="container-fluid">
-				<a class="navbar-brand" href="#" style="color: #fff">銀行のアプリ</a>
-				<button class="navbar-toggler" type="button"
-					data-bs-toggle="collapse" data-bs-target="#navbarText"
-					aria-controls="navbarText" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarText">
-					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item"><a class="nav-link" aria-current="page"
-							href="#" style="color: #fff">Home</a></li>
-						<li class="nav-item">
-							<!-- 振り込み画面へ --> <a
-							th:href="@{/userPage/transferPage(id=${session.user.id})}"
-							class="nav-link" style="color: #fff">振り込み</a> <!-- 振り込み画面へ -->
-						</li>
-					</ul>
-					<span class="navbar-text px-4" style="color: #fff"> ようこそ <span
-						th:text="${session.user.lastName}">ゲスト</span> さま
-					</span>
-					<!-- ログアウト -->
-					<a th:href="@{/userPage/logout}" class="nav-link" style="color: #fff">ログアウト</a>
-					<!-- ログアウト -->
-				</div>
-			</div>
-		</nav>
+		<nav th:insert="include/user-header::user-header"></nav>
 		<!-- ヘッダー -->
 
 		<!-- 銀行名, 口座番号 -->
@@ -53,7 +25,7 @@
 
 
 		<!-- 取引履歴 -->
-		<div class="row col-10 offset-1">
+		<div class="row col-10 offset-1 mb-5">
 			<table class="table table-striped table-hover mt-5">
 				<thead>
 					<tr>
@@ -68,18 +40,18 @@
 						<td th:text="${transaction.tradeDate}">date</td>
 						<td
 							th:if="${transaction.withdrawalAccount == session.user.accountNumber}"
-							th:text="${transaction.amount}">withdrawal</td>
+							th:text="${#numbers.formatInteger(transaction.amount, 1, 'COMMA')}">withdrawal</td>
 						<td
 							th:unless="${transaction.withdrawalAccount == session.user.accountNumber}"></td>
 						<td th:if="${transaction.depositAccount == session.user.accountNumber}"
-							th:text="${transaction.amount}">deposit</td>
+							th:text="${#numbers.formatInteger(transaction.amount, 1, 'COMMA')}">deposit</td>
 						<td
 							th:unless="${transaction.depositAccount == session.user.accountNumber}"></td>
 						<td
 							th:if="${transaction.withdrawalAccount == session.user.accountNumber}"
-							th:text="${transaction.withdrawalAmount}">withdrawalAmount</td>
+							th:text="${#numbers.formatInteger(transaction.withdrawalAmount, 1, 'COMMA')}">withdrawalAmount</td>
 						<td th:if="${transaction.depositAccount == session.user.accountNumber}"
-							th:text="${transaction.depositAmount}">depositAmount</td>
+							th:text="${#numbers.formatInteger(transaction.depositAmount, 1, 'COMMA')}">depositAmount</td>
 					</tr>
 				</tbody>
 			</table>

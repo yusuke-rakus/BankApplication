@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.domain.Bank;
+import com.example.demo.domain.TransferColumn;
 import com.example.demo.domain.User;
 import com.example.demo.form.TransferForm;
 import com.example.demo.service.BankService;
@@ -29,18 +30,29 @@ public class OperationController {
 
 	@Autowired
 	private BankService bankService;
-	
+
 	@Autowired
 	private HttpSession session;
 
 	@RequestMapping("")
-	public String userPage() {
+	public String userPage(Integer id) {
+		User user = userService.findById(id);
+		List<TransferColumn> transferList = transferService.findTransferList(user.getAccountNumber());
+		Bank bankInfo = bankService.findByBankName(user.getBankName());
+		session.setAttribute("user", user);
+		session.setAttribute("bankInfo", bankInfo);
+		session.setAttribute("transferList", transferList);
+
 		return "user-view/home";
 	}
 
 	/** 振込ページへ遷移 */
 	@RequestMapping("/transferPage")
-	public String transferPage(Integer id, Model model) {
+	public String transferPage(Integer id, Model model, RedirectAttributes redirectAttributes) {
+		if (session == null) {
+			redirectAttributes.addAttribute("message", "セッション切れのためログアウトしました");
+			return "redirect:/";
+		}
 		/** 現在残高の表示 */
 		User user = userService.findById(id);
 		model.addAttribute("id", user.getId());
@@ -79,7 +91,8 @@ public class OperationController {
 		transferService.save(withdrawalUser, withdrawalUser.getAmount(), depositUser, depositUser.getAmount(),
 				transferAmount);
 
-		return "redirect:/userPage/";
+		/** sessionの再設定 */
+		return "redirect:/userPage?id=" + withdrawalUser.getId();
 	}
 
 	@RequestMapping("/logout")

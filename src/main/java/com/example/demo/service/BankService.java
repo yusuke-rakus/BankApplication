@@ -17,5 +17,9 @@ public class BankService {
 	public List<Bank> findAll(){
 		return repository.findAll();
 	}
+	
+	public Bank findByBankName(String bankName) {
+		return repository.findByBankName(bankName);
+	}
 
 }

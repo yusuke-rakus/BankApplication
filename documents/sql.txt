@@ -18,7 +18,8 @@ create table user_info(
 create table bank_list(
 	id serial primary key,
 	bank_code text not null unique,
-	bank_name text not null unique
+	bank_name text not null unique,
+	bank_color_code text not null
 );
 
 create table transaction_list(
@@ -31,10 +32,11 @@ create table transaction_list(
 	deposit_amount integer
 );
 
-INSERT INTO bank_list(bank_code, bank_name) VALUES('0001', 'みずほ銀行');
-INSERT INTO bank_list(bank_code, bank_name) VALUES('0005', '三菱UFJ銀行');
-INSERT INTO bank_list(bank_code, bank_name) VALUES('0009', '三井住友銀行');
-INSERT INTO bank_list(bank_code, bank_name) VALUES('0010', 'りそな銀行');
+INSERT INTO bank_list(bank_code, bank_name, bank_color_code) VALUES('0001', 'みずほ銀行', '#006');
+INSERT INTO bank_list(bank_code, bank_name, bank_color_code) VALUES('0005', '三菱UFJ銀行', '#E60000');
+INSERT INTO bank_list(bank_code, bank_name, bank_color_code) VALUES('0009', '三井住友銀行', '#004831');
+INSERT INTO bank_list(bank_code, bank_name, bank_color_code) VALUES('0010', 'りそな銀行', '#009f6b');
+INSERT INTO bank_list(bank_code, bank_name, bank_color_code) VALUES('0138', '横浜銀行', '#E5F502');
 
 INSERT INTO user_info(last_name, first_name, gender, age, address, bank_name, account_number, amount, password) VALUES('黒川','明人','男性','44','東京都港区高輪4丁目','みずほ銀行','0384925',1000000,'kurokawa');
 INSERT INTO user_info(last_name, first_name, gender, age, address, bank_name, account_number, amount, password) VALUES('春日','俊明','男性','42','東京都杉並区阿佐谷南1丁目','三井住友銀行','0249134',1000000,'kasuga');
