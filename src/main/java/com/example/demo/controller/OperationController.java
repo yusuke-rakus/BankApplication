@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.domain.Bank;
-import com.example.demo.domain.TransferColumn;
 import com.example.demo.domain.User;
 import com.example.demo.form.TransferForm;
 import com.example.demo.service.BankService;
@@ -30,15 +29,12 @@ public class OperationController {
 
 	@Autowired
 	private BankService bankService;
-
+	
 	@Autowired
 	private HttpSession session;
 
 	@RequestMapping("")
 	public String userPage() {
-		/** 取引履歴を取得 */
-		List<TransferColumn> transferList = transferService.findTransferList(withdrawalUser.getAccountNumber());
-		session.setAttribute("transferList", transferList);
 		return "user-view/home";
 	}
 
@@ -88,8 +84,9 @@ public class OperationController {
 
 	@RequestMapping("/logout")
 	public String logout() {
-
-		return null;
+		/** セッション情報の削除 */
+		session.invalidate();
+		return "redirect:/";
 	}
 
 }

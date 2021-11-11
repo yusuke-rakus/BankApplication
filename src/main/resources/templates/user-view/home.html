@@ -35,7 +35,7 @@
 						th:text="${session.user.lastName}">ゲスト</span> さま
 					</span>
 					<!-- ログアウト -->
-					<a href="" class="nav-link" style="color: #fff">ログアウト</a>
+					<a th:href="@{/userPage/logout}" class="nav-link" style="color: #fff">ログアウト</a>
 					<!-- ログアウト -->
 				</div>
 			</div>
