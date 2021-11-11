@@ -27,12 +27,12 @@
 							href="#" style="color: #fff">Home</a></li>
 						<li class="nav-item">
 							<!-- 振り込み画面へ --> <a
-							th:href="@{/userPage/transferPage(id=${session.id})}"
+							th:href="@{/userPage/transferPage(id=${session.user.id})}"
 							class="nav-link" style="color: #fff">振り込み</a> <!-- 振り込み画面へ -->
 						</li>
 					</ul>
 					<span class="navbar-text px-4" style="color: #fff"> ようこそ <span
-						th:text="${session.lastName}">ゲスト</span> さま
+						th:text="${session.user.lastName}">ゲスト</span> さま
 					</span>
 					<!-- ログアウト -->
 					<a href="" class="nav-link" style="color: #fff">ログアウト</a>
@@ -45,8 +45,8 @@
 		<!-- 銀行名, 口座番号 -->
 		<div class="card mt-3 col-3">
 			<div class="card-body text-center">
-				<span th:text="${session.bankName}">sample銀行</span> <span>
-					口座番号: <span th:text="${session.accountNumber}">0000000</span>
+				<span th:text="${session.user.bankName}">sample銀行</span> <span>
+					口座番号: <span th:text="${session.user.accountNumber}">0000000</span>
 				</span>
 			</div>
 		</div>
@@ -64,7 +64,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="transaction:${transferList}">
+					<tr th:each="transaction:${session.transferList}">
 						<td th:text="${transaction.tradeDate}">date</td>
 						<td
 							th:if="${transaction.withdrawalAccount == session.accountNumber}"

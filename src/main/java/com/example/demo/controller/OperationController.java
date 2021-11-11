@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,23 +21,25 @@ import com.example.demo.service.UserService;
 @Controller
 @RequestMapping("/userPage")
 public class OperationController {
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private TransferService transferService;
-	
+
 	@Autowired
 	private BankService bankService;
-	
+
+	@Autowired
+	private HttpSession session;
+
 	@RequestMapping("")
 	public String userPage() {
 		/** 取引明細の表示 */
-		transferService.findTransferList(null);
 		return "user-view/home";
 	}
-	
+
 	/** 振込ページへ遷移 */
 	@RequestMapping("/transferPage")
 	public String transferPage(Integer id, Model model) {
@@ -49,20 +53,21 @@ public class OperationController {
 		model.addAttribute("bankList", bankList);
 		return "user-view/transfer-view";
 	}
-	
+
+	/** 振込処理 */
 	@RequestMapping("/transfer")
 	public String transfer(TransferForm form, Model model, RedirectAttributes redirect) {
 		User withdrawalUser = userService.findById(form.getId());
 		User depositUser = userService.findByBankNameAndAccount(form.getBankName(), form.getAcceptAccount());
 		Integer transferAmount = form.getAmount();
-		if(depositUser == null) {
+		if (depositUser == null) {
 			model.addAttribute("notFound", "notFound");
 			model.addAttribute("selectedBankName", form.getBankName());
 			model.addAttribute("acceptAccount", form.getAcceptAccount());
 			model.addAttribute("requestAmount", form.getAmount());
 			return "forward:/userPage/transferPage";
 		}
-		if(withdrawalUser.getAmount() - transferAmount < 0) {
+		if (withdrawalUser.getAmount() - transferAmount < 0) {
 			model.addAttribute("InsufficientAmount", "InsufficientAmount");
 			model.addAttribute("selectedBankName", form.getBankName());
 			model.addAttribute("acceptAccount", form.getAcceptAccount());
@@ -71,34 +76,21 @@ public class OperationController {
 		}
 		userService.withdrawal(withdrawalUser, transferAmount);
 		userService.deposit(depositUser, transferAmount);
-		
+
 		/** saveメソッドを呼び出してtransaction_listへ格納 */
-		transferService.save(
-				withdrawalUser, 
-				withdrawalUser.getAmount(), 
-				depositUser, 
-				depositUser.getAmount(), 
-				transferAmount
-				);
-		
+		transferService.save(withdrawalUser, withdrawalUser.getAmount(), depositUser, depositUser.getAmount(),
+				transferAmount);
+
 		/** 取引履歴を取得 */
-		List<TransferColumn> transferList = 
-				transferService.findTransferList(withdrawalUser.getAccountNumber());
-		redirect.addFlashAttribute("transferList", transferList);
+		List<TransferColumn> transferList = transferService.findTransferList(withdrawalUser.getAccountNumber());
+		session.setAttribute("transferList", transferList);
 		return "redirect:/userPage/";
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@RequestMapping("/logout")
+	public String logout() {
+
+		return null;
+	}
+
 }

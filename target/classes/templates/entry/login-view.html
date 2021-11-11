@@ -18,6 +18,13 @@
 			</div>
 		</nav>
 		<!-- header -->
+		
+		<div th:if="${user != null}" class="my-5 col-4 offset-4">
+			<div class="alert alert-success text-center" role="alert">
+				<span><span th:text="${user.bankName}">sample銀行</span>へようこそ</span><br>
+				<span>あなたの口座番号: <span th:text="${user.accountNumber}">accountNumber</span></span>
+			</div>
+		</div>
 
 		<div class="row justify-content-center mt-5">
 			<div class="card col-lg-8">

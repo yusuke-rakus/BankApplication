@@ -1,13 +1,26 @@
 package com.example.demo.form;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+
 public class NewAccountForm {
+	@Length(min=1, max=10, message="*1文字以上10文字以内で入力してください")
 	private String lastName;
+	@Length(min=1, max=10, message="*1文字以上10文字以内で入力してください")
 	private String firstName;
+	@NotNull(message = "*選択は必須です")
 	private String gender;
+	@NotNull(message = "*選択は必須です")
 	private Integer age;
+	@NotBlank(message = "*入力は必須です")
 	private String address;
+	@NotBlank(message = "*選択は必須です")
 	private String bankName;
+	@NotNull(message = "*入力は必須です")
 	private Integer amount;
+	@Length(min=5, message = "*5文字以上に設定してください")
 	private String password;
 
 	public String getLastName() {

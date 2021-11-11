@@ -18,19 +18,24 @@
 			</div>
 		</nav>
 		<!-- header -->
+
 		<div class="row col-md-8 offset-md-2 mt-5">
-			<form th:action="@{/createAccount}" th:object="${newAccountForm}" method="post">
+			<form th:action="@{/createAccount}" th:object="${newAccountForm}"
+				method="post">
 				<div class="row">
 					<div class="col">
 						<div class="form-floating">
 							<input th:field="*{lastName}" type="text" class="form-control"
 								placeholder="名字" /> <label>名字</label>
+							<div th:errors="*{lastName}" class="text-danger">error</div>
 						</div>
 					</div>
+
 					<div class="col">
 						<div class="form-floating mb-4">
 							<input th:field="*{firstName}" type="text" class="form-control"
 								placeholder="氏名" /> <label>氏名</label>
+							<div th:errors="*{firstName}" class="text-danger">error</div>
 						</div>
 					</div>
 				</div>
@@ -42,41 +47,47 @@
 						type="radio" class="btn-check" value="女性" name="gender"
 						id="female" autocomplete="off" /> <label
 						class="btn btn-outline-primary" for="female">女性</label>
+					<div th:errors="*{gender}" class="text-danger">error</div>
 				</div>
 				<div class="col-2 mb-4">
 					<select class="form-select" name="age">
-						<option selected>年齢</option>
+						<option selected th:value="${null}">年齢</option>
 						<option th:each="age:${ageList}" th:text="${age}"
 							th:value="${age}"></option>
 					</select>
+					<div th:errors="*{age}" class="text-danger">error</div>
 				</div>
 
 				<div class="form-floating mb-4">
 					<input th:field="*{address}" type="text" class="form-control"
 						placeholder="住所" /> <label>住所</label>
+					<div th:errors="*{address}" class="text-danger">error</div>
 				</div>
 
 				<div class="col-4 mb-4">
 					<select class="form-select" name="bankName">
-						<option selected>銀行を選択</option>
+						<option selected value="">銀行を選択</option>
 						<option th:each="bank:${bankList}" th:text="${bank.bankName}"
 							th:value="${bank.bankName}"></option>
 					</select>
+					<div th:errors="*{bankName}" class="text-danger">error</div>
 				</div>
 
 				<div class="form-floating mb-4">
 					<input th:field="*{amount}" type="text" class="form-control"
 						placeholder="初回入金金額" /> <label>初回入金金額</label>
+					<div th:errors="*{amount}" class="text-danger">error</div>
 				</div>
 
 				<div class="form-floating mb-4">
-					<input th:field="*{password}" type="password" class="form-control" placeholder="ログインパスワードを設定" />
-					<label>ログインパスワードを設定</label>
+					<input th:field="*{password}" type="password" class="form-control"
+						placeholder="ログインパスワードを設定" /> <label>ログインパスワードを設定</label>
+					<div th:errors="*{password}" class="text-danger">error</div>
 				</div>
 
 				<button type="submit" class="btn btn-primary">登録</button>
 			</form>
-			
+
 		</div>
 	</div>
 
