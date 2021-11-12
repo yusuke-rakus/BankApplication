@@ -70,7 +70,6 @@ public class LoginController {
 		Bank bankInfo = bankService.findByBankName(user.getBankName()); 
 		session.setAttribute("bankInfo", bankInfo);
 		session.setAttribute("user", user);
-//		return "redirect:userPage/";
 		return "user-view/home";
 	}
 
