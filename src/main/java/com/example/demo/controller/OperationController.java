@@ -77,27 +77,46 @@ public class OperationController {
 			return "forward:/userPage/transferPage";
 		}
 
+		/** 二段階認証画面に出力する情報 */
 		model.addAttribute("withdrawalUser", withdrawalUser);
 		model.addAttribute("depositUser", depositUser);
 		model.addAttribute("transferAmount", transferAmount);
 
+		/** ワンタイムパスワードを生成しコンソールに出力 */
+		StringBuilder pass = new StringBuilder();
+		for (int i = 0; i < 4; i++) {
+			pass.insert(i, (int) (Math.random() * 10));
+		}
+		oneTimePass = pass.toString();
+		System.out.println("以下のパスワードを画面に入力してください:");
+		System.out.println(oneTimePass);
+
+		/** 認証画面へ遷移 */
 		return "/user-view/verification-view";
 	}
 
 	@RequestMapping("/verification")
-	public String verification(User withdrawalUser, User depositUser, Integer transferAmount) {
-		userService.withdrawal(withdrawalUser, transferAmount);
-		userService.deposit(depositUser, transferAmount);
+	public String verification(String inputOneTimePass, Integer withdrawalUserId, Integer depositUserId,
+			Integer transferAmount, Model model) {
+		if (inputOneTimePass.equals(oneTimePass)) {
+			User withdrawalUser = userService.findById(withdrawalUserId);
+			User depositUser = userService.findById(depositUserId);
+			userService.withdrawal(withdrawalUser, transferAmount);
+			userService.deposit(depositUser, transferAmount);
 
-		/** saveメソッドを呼び出してtransaction_listへ格納 */
-		transferService.save(withdrawalUser, withdrawalUser.getAmount(), depositUser, depositUser.getAmount(),
-				transferAmount);
+			/** saveメソッドを呼び出してtransaction_listへ格納 */
+			transferService.save(withdrawalUser, withdrawalUser.getAmount(), depositUser, depositUser.getAmount(),
+					transferAmount);
 
-		/** sessionの再設定 */
-		List<TransferColumn> transferList = transferService.findTransferList(withdrawalUser.getAccountNumber());
-		session.setAttribute("transferList", transferList);
+			/** sessionの再設定 */
+			List<TransferColumn> transferList = transferService.findTransferList(withdrawalUser.getAccountNumber());
+			session.setAttribute("transferList", transferList);
 
-		return "redirect:/userPage";
+			return "redirect:/userPage/";
+		} else {
+			model.addAttribute("error", "error");
+			return "user-view/verification-view";
+		}
 	}
 
 	@RequestMapping("/logout")
