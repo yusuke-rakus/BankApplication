@@ -17,8 +17,7 @@
 		<!-- 銀行名, 口座番号 -->
 		<div class="card mt-3 col-3">
 			<div class="card-body text-center">
-				<span th:text="${session.user.bankName}">sample銀行</span> <span>
-					口座番号: <span th:text="${session.user.accountNumber}">0000000</span>
+				<span> 口座番号: <span th:text="${session.user.accountNumber}">0000000</span>
 				</span>
 			</div>
 		</div>
@@ -43,14 +42,16 @@
 							th:text="${#numbers.formatInteger(transaction.amount, 1, 'COMMA')}">withdrawal</td>
 						<td
 							th:unless="${transaction.withdrawalAccount == session.user.accountNumber}"></td>
-						<td th:if="${transaction.depositAccount == session.user.accountNumber}"
+						<td
+							th:if="${transaction.depositAccount == session.user.accountNumber}"
 							th:text="${#numbers.formatInteger(transaction.amount, 1, 'COMMA')}">deposit</td>
 						<td
 							th:unless="${transaction.depositAccount == session.user.accountNumber}"></td>
 						<td
 							th:if="${transaction.withdrawalAccount == session.user.accountNumber}"
 							th:text="${#numbers.formatInteger(transaction.withdrawalAmount, 1, 'COMMA')}">withdrawalAmount</td>
-						<td th:if="${transaction.depositAccount == session.user.accountNumber}"
+						<td
+							th:if="${transaction.depositAccount == session.user.accountNumber}"
 							th:text="${#numbers.formatInteger(transaction.depositAmount, 1, 'COMMA')}">depositAmount</td>
 					</tr>
 				</tbody>

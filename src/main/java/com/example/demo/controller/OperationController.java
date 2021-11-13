@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.domain.Bank;
+import com.example.demo.domain.TransferColumn;
 import com.example.demo.domain.User;
 import com.example.demo.form.TransferForm;
 import com.example.demo.service.BankService;
@@ -34,11 +35,7 @@ public class OperationController {
 	private HttpSession session;
 
 	@RequestMapping("")
-	public String userPage(RedirectAttributes redirectAttributes) {
-		if (session == null) {
-			redirectAttributes.addAttribute("message", "セッション切れのためログアウトしました");
-			return "redirect:/";
-		}
+	public String userPage() {
 		return "user-view/home";
 	}
 
@@ -83,9 +80,11 @@ public class OperationController {
 		/** saveメソッドを呼び出してtransaction_listへ格納 */
 		transferService.save(withdrawalUser, withdrawalUser.getAmount(), depositUser, depositUser.getAmount(),
 				transferAmount);
-
+		
 		/** sessionの再設定 */
-		return "redirect:/userPage?id=" + withdrawalUser.getId();
+		List<TransferColumn> transferList = transferService.findTransferList(withdrawalUser.getAccountNumber());
+ 		session.setAttribute("transferList", transferList);
+		return "redirect:/userPage";
 	}
 
 	@RequestMapping("/logout")
