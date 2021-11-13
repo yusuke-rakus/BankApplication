@@ -31,13 +31,17 @@
 					</tr>
 				</table>
 
-				<form class="offset-3 col-6" th:action="@{/userPage/verification}">
-					<label for="verification" class="form-label">ワンタイムパスワード</label> <input
-						name="inputOneTimePass" id="verification" type="password"
+				<form class="offset-3 col-6" th:action="@{/userPage/verification}"
+					method="post">
+					<label for="verification" class="form-label">ワンタイムパスワード</label>
+					<div th:if="${error != null}" th:text="${error}"
+						class="alert alert-danger" role="alert"></div>
+					<input name="inputOneTimePass" id="verification" type="password"
 						class="form-control mb-3" /> <input type="hidden"
 						name="withdrawalUserId" th:value="${withdrawalUser.id}"> <input
-						type="hidden" name="depositUserId" th:value="${depositUser.id}"> <input
-						type="hidden" name="transferAmount" th:value="${transferAmount}">
+						type="hidden" name="depositUserId" th:value="${depositUser.id}">
+					<input type="hidden" name="transferAmount"
+						th:value="${transferAmount}">
 					<button class="btn btn-primary">振込確定</button>
 				</form>
 

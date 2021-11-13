@@ -114,8 +114,11 @@ public class OperationController {
 
 			return "redirect:/userPage/";
 		} else {
-			model.addAttribute("error", "error");
-			return "user-view/verification-view";
+			model.addAttribute("withdrawalUser", userService.findById(withdrawalUserId));
+			model.addAttribute("depositUser", userService.findById(depositUserId));
+			model.addAttribute("transferAmount", transferAmount);
+			model.addAttribute("error", "パスワードが一致しません");
+			return "/user-view/verification-view";
 		}
 	}
 
