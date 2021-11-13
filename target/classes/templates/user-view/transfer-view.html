@@ -4,8 +4,7 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="../../static/css/bootstrap.css"
-	th:href="@{/css/bootstrap.css}" />
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
 <title>銀行のアプリ</title>
 </head>
 <body>
@@ -27,7 +26,7 @@
 		</div>
 
 		<!-- 振り込み画面 -->
-		<div class="row col-6 offset-3">
+		<div class="row col-6 offset-3 mb-4">
 			<form th:action="@{/userPage/transfer}" class="row g-3 mt-5"
 				method="post">
 				<div class="col-12">
@@ -35,32 +34,36 @@
 						id="inputState" name="bankName" class="form-select">
 						<option>銀行を選択してください</option>
 						<option th:each="bank:${bankList}" th:text="${bank.bankName}"
-							th:value="${bank.bankName}" th:selected="${bank.bankName == selectedBankName}">sample銀行</option>
+							th:value="${bank.bankName}"
+							th:selected="${bank.bankName == selectedBankName}">sample銀行</option>
 					</select>
 				</div>
 
 				<div class="col-12">
 					<label for="account" class="form-label">口座番号</label> <input
-						type="text" name="acceptAccount" class="form-control" id="account" th:value="${acceptAccount}" />
-					<div th:if="${notFound != null}" class="alert alert-danger mt-2" role="alert">
-						存在しない銀行口座です</div>
+						type="text" name="acceptAccount" class="form-control" id="account"
+						th:value="${acceptAccount}" />
+					<div th:if="${notFound != null}" class="alert alert-danger mt-2"
+						role="alert">存在しない銀行口座です</div>
 				</div>
 
 				<div class="col-12 mb-3">
 					<label for="amount" class="form-label">金額</label> <input
-						type="text" name="amount" class="form-control" id="amount" th:value="${requestAmount}" />
-					<div th:if="${InsufficientAmount != null}" class="alert alert-danger mt-2" role="alert">金額が不足しています
-					</div>
+						type="text" name="amount" class="form-control" id="amount"
+						th:value="${requestAmount}" />
+					<div th:if="${InsufficientAmount != null}"
+						class="alert alert-danger mt-2" role="alert">金額が不足しています</div>
 				</div>
 
 				<div class="row">
 					<input type="hidden" name="id" th:value="${id}">
-					<button type="submit" class="btn btn-primary col-md-4 mx-auto">
+					<button type="submit" class="btn btn-primary col-md-4 offset-4">
 						振込依頼</button>
 				</div>
 			</form>
 		</div>
 		
 	</div>
+	<script th:src="@{/script/transfer.js}"></script>
 </body>
 </html>

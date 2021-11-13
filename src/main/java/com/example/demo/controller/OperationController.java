@@ -34,6 +34,8 @@ public class OperationController {
 	@Autowired
 	private HttpSession session;
 
+	private String oneTimePass = null;
+
 	@RequestMapping("")
 	public String userPage() {
 		return "user-view/home";
@@ -42,7 +44,7 @@ public class OperationController {
 	/** 振込ページへ遷移 */
 	@RequestMapping("/transferPage")
 	public String transferPage(Integer id, Model model, RedirectAttributes redirectAttributes) {
-		
+
 		/** 現在残高の表示 */
 		User user = userService.findById(id);
 		model.addAttribute("id", user.getId());
@@ -74,16 +76,27 @@ public class OperationController {
 			model.addAttribute("requestAmount", form.getAmount());
 			return "forward:/userPage/transferPage";
 		}
+
+		model.addAttribute("withdrawalUser", withdrawalUser);
+		model.addAttribute("depositUser", depositUser);
+		model.addAttribute("transferAmount", transferAmount);
+
+		return "/user-view/verification-view";
+	}
+
+	@RequestMapping("/verification")
+	public String verification(User withdrawalUser, User depositUser, Integer transferAmount) {
 		userService.withdrawal(withdrawalUser, transferAmount);
 		userService.deposit(depositUser, transferAmount);
 
 		/** saveメソッドを呼び出してtransaction_listへ格納 */
 		transferService.save(withdrawalUser, withdrawalUser.getAmount(), depositUser, depositUser.getAmount(),
 				transferAmount);
-		
+
 		/** sessionの再設定 */
 		List<TransferColumn> transferList = transferService.findTransferList(withdrawalUser.getAccountNumber());
- 		session.setAttribute("transferList", transferList);
+		session.setAttribute("transferList", transferList);
+
 		return "redirect:/userPage";
 	}
 

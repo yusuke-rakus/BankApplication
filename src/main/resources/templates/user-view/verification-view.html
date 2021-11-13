@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
+<title>銀行のアプリ</title>
+</head>
+<body>
+	<div class="container">
+		<!-- ヘッダー -->
+		<nav th:insert="include/user-header::user-header"></nav>
+		<!-- ヘッダー -->
+		<div class="card text-center">
+			<div class="card-header">振込内容の確認</div>
+			<div class="card-body">
+				<table class="table table-striped">
+					<tr>
+						<th>受取人名義</th>
+						<td th:text="${depositUser.lastName} + ${depositUser.firstName}">sample</td>
+					</tr>
+					<tr>
+						<th>口座番号</th>
+						<td th:text="${depositUser.accountNumber}">sample</td>
+					</tr>
+					<tr>
+						<th>振込金額</th>
+						<td
+							th:text="${#numbers.formatInteger(transferAmount, 1, 'COMMA')} + '円'">sample</td>
+					</tr>
+				</table>
+
+				<form class="offset-3 col-6" th:action="@{/userPage/verification}">
+					<label for="verification" class="form-label">ワンタイムパスワード</label> <input
+						name="oneTimePass" id="verification" type="text"
+						class="form-control mb-3" /> <input type="hidden"
+						name="withdrawalUser" value="${withdrawalUser}"> <input
+						type="hidden" name="depositUser" value="${depositUser}"> <input
+						type="hidden" name="transferAmount" value="${transferAmount}">
+					<button class="btn btn-primary">振込確定</button>
+				</form>
+
+			</div>
+		</div>
+		
+	</div>
+	<script th:src="@{/script/transfer.js}"></script>
+</body>
+</html>
