@@ -9,7 +9,7 @@
 <body>
 
 	<nav th:fragment="user-header"
-		class="navbar navbar-expand-lg navbar-light"
+		class="navbar navbar-expand-sm navbar-light"
 		th:style="|background-color: ${session.bankInfo.bankColorCode}|">
 		<div class="container-fluid">
 			<a th:text="${session.user.bankName}" class="navbar-brand" th:href="@{/userPage}" style="color: #fff">銀行のアプリ</a>

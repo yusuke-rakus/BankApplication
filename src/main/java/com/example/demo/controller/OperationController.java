@@ -69,7 +69,7 @@ public class OperationController {
 			model.addAttribute("requestAmount", form.getAmount());
 			return "forward:/userPage/transferPage";
 		}
-		if (withdrawalUser.getAmount() - transferAmount < 0) {
+		if (withdrawalUser.getAmount() - transferAmount < 0 || transferAmount < 1) {
 			model.addAttribute("InsufficientAmount", "InsufficientAmount");
 			model.addAttribute("selectedBankName", form.getBankName());
 			model.addAttribute("acceptAccount", form.getAcceptAccount());
