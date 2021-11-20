@@ -1,0 +1,7 @@
+@charset "UTF-8";
+input[type="text"],
+input[type="password"],
+textarea,
+select {
+    outline: none;
+}
